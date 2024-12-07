@@ -6,7 +6,14 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+dist/# Remove everything from git's index
+git rm -r --cached .
+
+# Add everything back except what's in .gitignore
+git add .
+
+# Create a new commit
+git commit -m "Remove virtual environment and update .gitignore"
 downloads/
 eggs/
 .eggs/
