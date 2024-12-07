@@ -1,61 +1,103 @@
-# Convert Word Documents to Excel
+# Word to Excel Converter with SQL Schema Generator
 
-A Python script to convert the content of Microsoft Word documents (`.docx`) into Excel spreadsheets (`.xlsx`) while preserving text formatting and table structures.
+A Python utility that converts Word documents to Excel and automatically generates SQL schema definitions based on the data structure.
 
 ## Features
 
-- Extracts paragraphs and tables from Word documents.
-- Maintains text formatting such as bold, italic, and font styles.
-- Converts Word tables into corresponding Excel rows and columns.
-- Supports creating new directories for output files if not present.
+- 📄 Convert Word documents (.docx) to Excel (.xlsx)
+- 📊 Preserve formatting and table structures
+- 🔍 Intelligent data type detection
+- 📝 Generate SQL schemas for multiple database dialects
+- 📊 Detailed column analysis and metadata
+- ✨ Support for PostgreSQL, MySQL, SQLite, and MSSQL
 
-## Requirements
+## Prerequisites
 
-Ensure you have the following installed:
+```bash
+pip install -r requirements.txt
+```
 
-- Python 3.7 or higher
-- Virtual environment with the required Python libraries
+Required Python packages:
+- python-docx
+- openpyxl
+- pandas
+- typing
 
-## Installation
+## Usage
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/convert-word-documents-to-excel.git
-   cd convert-word-documents-to-excel
-2. Set up a virtual environment and activate it:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate   # On Windows: venv\Scripts\activate\
+1. Update the file paths in `convert.py`:
+```python
+word_file_path = "/path/to/your/document.docx"
+excel_file_path = "output/WordToExcel.xlsx"
+```
 
-3. Install dependencies:
-    ```bash
-    pip install -r requirements.txt
+2. Run the script:
+```bash
+python convert.py
+```
 
-Usage
+3. The script will generate:
+   - Excel file with the converted Word document
+   - SQL schema files for PostgreSQL and MySQL
+   - Detailed column analysis in JSON format
 
-1. Place your Word document (.docx) in the project directory.
-2. Edit convert.py to specify the file paths:
+## Output Files
 
-    ```bash
-    word_file_path = "path/to/your/document.docx"
-    excel_file_path = "path/to/output/WordToExcel.xlsx"
+- `output/WordToExcel.xlsx`: Converted Excel file
+- `output/schema_postgresql.sql`: PostgreSQL schema
+- `output/schema_mysql.sql`: MySQL schema
+- `output/column_analysis.json`: Detailed column metadata
 
-3. Run the script:
-    ```bash
-    python convert.py
-4. The converted Excel file will be saved in the specified output path.
+## SQL Type Mapping
 
-Error Handling
+The script intelligently maps data types based on content analysis:
 
-Empty paragraphs or unsupported elements: The script skips invalid or empty content and logs the issue.
-FileNotFoundError: Ensure the output directory exists or will be created automatically.
-IndexError: This usually happens when accessing an element that doesn't exist. The script now safely skips these cases.
-Contributions
+### Integer Types
+- `SMALLINT`: Values < 32,767
+- `INTEGER/INT`: Values < 2,147,483,647
+- `BIGINT`: Larger values
 
-Contributions are welcome! To contribute:
+### Text Types
+- PostgreSQL:
+  - `VARCHAR(n)`: Text up to 255 characters
+  - `TEXT`: Longer text
+- MySQL:
+  - `VARCHAR(n)`: Text up to 65,535 characters
+  - `MEDIUMTEXT`: Text up to 16MB
+  - `LONGTEXT`: Text up to 4GB
 
-Fork this repository.
-Create a new branch (git checkout -b feature-name).
-Commit your changes (git commit -am 'Add some feature').
-Push to the branch (git push origin feature-name).
-Open a pull reques
+### Date/Time Types
+- PostgreSQL: `TIMESTAMP`
+- MySQL: `DATETIME`
+
+### Decimal Types
+- PostgreSQL: `NUMERIC(precision,scale)`
+- Others: `DECIMAL(precision,scale)`
+
+## Column Analysis
+
+The JSON analysis includes:
+- Original column names
+- Null value statistics
+- Data ranges (min/max values)
+- Text length statistics
+- Data quality metrics
+
+## Example Output
+
+```sql
+CREATE TABLE example_table (
+    id INTEGER NOT NULL,
+    name VARCHAR(100) NULL,
+    created_at TIMESTAMP NULL,
+    amount NUMERIC(18,2) NULL
+);
+```
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

@@ -1,3 +1,64 @@
-/venv
-/.idea
-.idea
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+.python-version
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# Output files
+output/
+*.xlsx
+*.xls
+*.csv
+schema_*.sql
+column_analysis.json
+
+# Temporary files
+~$*
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
+*.log
+.directory
+
+# Project specific
+# Uncomment if you want to ignore input Word documents
+# *.docx
+# *.doc
