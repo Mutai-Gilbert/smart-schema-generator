@@ -20,13 +20,18 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual Environment
+# Virtual Environment - More comprehensive rules
 venv/
 env/
 ENV/
 .env
 .venv
 .python-version
+virtualenv/
+**/venv/
+**/.venv/
+.env/
+*.dylib  # Explicitly ignore dylib files
 
 # IDE specific files
 .idea/
